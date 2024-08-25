@@ -1,4 +1,4 @@
-
+// "deploy": "gh-pages -d build",
 
 import React, { useState } from 'react';
 import axios from 'axios';
