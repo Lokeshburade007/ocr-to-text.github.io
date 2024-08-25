@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
-import logo from "./logo.png"
+import logo from "./logo.png";
 
 function App() {
     const [image, setImage] = useState(null);
@@ -22,10 +22,10 @@ function App() {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('https://ocr-to-text-github-io.onrender.com/upload', formData, {
+            const response = await axios.post('http://localhost:5000/upload', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
             setText(response.data.text);
         } catch (error) {
@@ -57,7 +57,7 @@ function App() {
                 <div className="text-center mb-6">
                     <img src={logo} alt="Logo" className="mx-auto w-28 mb-2" />
                     <h2 className="text-2xl font-bold">OCR to Text Converter</h2>
-                    <h4 className="text-sm">to verify blood sugar test result here</h4>
+                    <h4 className="text-sm">Verify your blood sugar test result here</h4>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -90,3 +90,11 @@ function App() {
 
 export default App;
 
+
+
+
+
+
+        // Deployed server link
+        // https://ocr-to-text-github-io.onrender.com/upload
+        // 
