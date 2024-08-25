@@ -22,7 +22,7 @@ function App() {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('http://localhost:5000/upload', formData, {
+            const response = await axios.post('https://ocr-to-text-github-io.onrender.com/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -42,6 +42,14 @@ function App() {
         doc.save("extracted_text.pdf");
     };
 
+    // const handleDownloadPDF = () => {
+    //     const doc = new jsPDF();
+    //     text.forEach((data, index) => {
+    //         doc.text(`${index + 1}. ${data.value} - ${data.category}`, 10, 10 + (index * 10));
+    //     });
+    //     doc.save("extracted_data.pdf");
+    // };
+    
     const handleDownloadTextFile = () => {
         const element = document.createElement("a");
         const file = new Blob([text], { type: "text/plain" });

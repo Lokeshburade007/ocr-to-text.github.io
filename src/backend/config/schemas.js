@@ -6,10 +6,6 @@ const ocrTextSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // vectorData: {
-    //     type: [Number],  // Array of numbers to store your numerical data
-    //     required: true
-    // },
     createdAt: {
         type: Date,
         default: Date.now
@@ -19,3 +15,6 @@ const ocrTextSchema = new mongoose.Schema({
 const OCRText = mongoose.model('OCRText', ocrTextSchema);
 
 module.exports = OCRText;
+
+
+
