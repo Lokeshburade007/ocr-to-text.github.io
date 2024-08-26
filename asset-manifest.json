@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/ocr-to-text.github.io/static/css/main.a3d2f817.css",
-    "main.js": "/ocr-to-text.github.io/static/js/main.7732731b.js",
+    "main.js": "/ocr-to-text.github.io/static/js/main.7a028b5b.js",
     "static/js/239.1ed82ab4.chunk.js": "/ocr-to-text.github.io/static/js/239.1ed82ab4.chunk.js",
     "static/js/213.779e139c.chunk.js": "/ocr-to-text.github.io/static/js/213.779e139c.chunk.js",
     "static/js/732.9e1a501f.chunk.js": "/ocr-to-text.github.io/static/js/732.9e1a501f.chunk.js",
     "index.html": "/ocr-to-text.github.io/index.html",
     "main.a3d2f817.css.map": "/ocr-to-text.github.io/static/css/main.a3d2f817.css.map",
-    "main.7732731b.js.map": "/ocr-to-text.github.io/static/js/main.7732731b.js.map",
+    "main.7a028b5b.js.map": "/ocr-to-text.github.io/static/js/main.7a028b5b.js.map",
     "239.1ed82ab4.chunk.js.map": "/ocr-to-text.github.io/static/js/239.1ed82ab4.chunk.js.map",
     "213.779e139c.chunk.js.map": "/ocr-to-text.github.io/static/js/213.779e139c.chunk.js.map",
     "732.9e1a501f.chunk.js.map": "/ocr-to-text.github.io/static/js/732.9e1a501f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a3d2f817.css",
-    "static/js/main.7732731b.js"
+    "static/js/main.7a028b5b.js"
   ]
 }
