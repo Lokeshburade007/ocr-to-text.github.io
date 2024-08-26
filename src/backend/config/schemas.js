@@ -17,4 +17,3 @@ const OCRText = mongoose.model('OCRText', ocrTextSchema);
 module.exports = OCRText;
 
 
-

@@ -20,9 +20,10 @@ function App() {
         setLoading(true);
         const formData = new FormData();
         formData.append('image', image);
-
+            
+        // http://localhost:5000/upload
         try {
-            const response = await axios.post('https://ocr-to-text-github-io.onrender.com/upload', formData, {
+            const response = await axios.post('https://ocr-to-text-github-io-1.onrender.com', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -106,3 +107,5 @@ export default App;
         // Deployed server link
         // https://ocr-to-text-github-io.onrender.com/upload
         // 
+
+

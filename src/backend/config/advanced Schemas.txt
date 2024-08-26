@@ -1,0 +1,32 @@
+
+const mongoose = require('mongoose');
+
+// Define the schema for storing categorized blood sugar levels
+const bloodSugarSchema = new mongoose.Schema({
+    // date: {
+    //     type: Date,
+    //     required: true
+    // },
+    oes: Number,
+    ab: Number,
+    bl: Number,
+    al: Number,
+    bd: Number,
+    ad: Number,
+    mn: Number,
+    remarks: String,
+    categories: {
+        normal: [Number],
+        diabetes: [Number],
+        lowSugar: [Number]
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Create the model based on the schema
+const BloodSugar = mongoose.model('BloodSugar', bloodSugarSchema);
+
+module.exports = BloodSugar;

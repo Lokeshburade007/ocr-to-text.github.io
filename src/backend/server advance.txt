@@ -1,0 +1,108 @@
+
+const express = require('express');
+const multer = require('multer');
+const Tesseract = require('tesseract.js');
+const cors = require('cors');
+const fs = require('fs');
+const ExtractedText = require('./config/schemas'); // Import the schema
+const mongoose = require("mongoose");
+
+// Constant URL
+const mongourl = 'mongodb+srv://lokeshburade494:dkIkoYuoIct4d7LL@ocr-data.bpvpd.mongodb.net/?retryWrites=true&w=majority&appName=ocr-data';
+
+mongoose.connect(mongourl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 50000,
+})
+.then(() => {
+    console.log("Database connected successfully");
+
+    // Start the server after the DB connection is established
+    const app = express();
+    app.use(cors());
+
+    const upload = multer({ dest: 'uploads/' });
+
+    app.post('/upload', upload.single('image'), async (req, res) => {
+        const imagePath = req.file.path;
+
+        try {
+            const { data: { text } } = await Tesseract.recognize(imagePath, 'eng', { logger: m => console.log(m) });
+
+            // Parse text data into fields (simple example, adjust as needed)
+            const parsedData = parseTextData(text);
+
+            // Determine result category
+            const categorizedData = categorizeData(parsedData);
+
+            // Save to MongoDB
+            const newText = new ExtractedText(categorizedData);
+            await newText.save();
+
+            // Clean up the uploaded image
+            fs.unlink(imagePath, err => {
+                if (err) console.error('Failed to delete image:', err);
+            });
+
+            res.json(categorizedData);
+        } catch (err) {
+            console.error('OCR Error:', err);
+            res.status(500).send({ error: 'OCR processing failed' });
+        }
+    });
+
+    app.listen(5000, () => {
+        console.log('Server is running on port 5000');
+    });
+
+})
+.catch((err) => {
+    console.error("Database connection error:", err.message);
+});
+
+// Function to parse the OCR text data
+function parseTextData(text) {
+    // Extract fields from text (example regex, adjust as needed)
+    const data = {
+        // date: extractField(text, 'Date'),
+        oes: extractField(text, 'OES'),
+        ab: extractField(text, 'AB'),
+        bl: extractField(text, 'BL'),
+        al: extractField(text, 'AL'),
+        bd: extractField(text, 'BD'),
+        ad: extractField(text, 'AD'),
+        mn: extractField(text, 'MN'),
+        remarks: extractField(text, 'Remarks')
+    };
+
+    return data;
+}
+
+// Function to extract a specific field from text
+function extractField(text, field) {
+    const regex = new RegExp(`${field}:\\s*(\\d+)`, 'i');
+    const match = text.match(regex);
+    return match ? match[1] : '';
+}
+
+// Function to categorize the data
+function categorizeData(data) {
+    const categories = {
+        normal: [],
+        diabetes: [],
+        lowSugar: []
+    };
+
+    // Example categorization based on OES field
+    if (data.oes >= 70 && data.oes <= 140) {
+        categories.normal.push(data.oes);
+    } else if (data.oes > 140 && data.oes <= 199) {
+        categories.diabetes.push(data.oes);
+    } else if (data.oes < 70) {
+        categories.lowSugar.push(data.oes);
+    }
+
+    // Add more categorization logic as needed
+    return categories;
+}
